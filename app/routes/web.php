@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\CompetitionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/competitions/1');
 });
+
+Route::get('/competitions/{id}', [CompetitionController::class, 'showGamesFromCompetition'])
+    ->where(['id' => '[0-9]+']);
+
+Route::get('/games/add', [CompetitionController::class, 'showForm']);
+
+Route::post('/games/add', [CompetitionController::class, 'storeGame']);
